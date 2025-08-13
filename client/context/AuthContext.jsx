@@ -3,9 +3,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-// const backendUrl = import.meta.env.VITE_BACKEND_URL;
-axios.defaults.baseURL = "http://localhost:5000";
-// axios.defaults.baseURL = backendUrl;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = backendUrl;
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
   //connect socket function to handle socket connection and online users updates
   const connectSocket = (userData) => {
     if (!userData || socket?.connected) return;
-    const newSocket = io(axios.defaults.baseURL, {
+    const newSocket = io(backendUrl, {
       query: {
         userId: userData._id,
       },
