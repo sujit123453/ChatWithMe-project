@@ -37,7 +37,14 @@ io.on("connection", (socket) => {
 
 //Middleware setup
 app.use(express.json({ limit: "4mb" }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://chat-with-me-project-tau.vercel.app", // your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // if you use cookies or authentication headers
+  })
+);
 
 //Routes setup
 app.use("/api/status", (req, res) => res.send("Server is live"));
