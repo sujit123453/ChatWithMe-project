@@ -12,13 +12,8 @@ const app = express();
 const server = http.createServer(app);
 
 //Initialize socket.io server
-const FRONTEND_URL = "https://chat-with-me-project-theta.vercel.app";
-
 export const io = new Server(server, {
-  cors: {
-    origin: FRONTEND_URL,
-    methods: ["GET", "POST"],
-  },
+  cors: { origin: "*" },
 });
 
 //store online users
@@ -42,14 +37,7 @@ io.on("connection", (socket) => {
 
 //Middleware setup
 app.use(express.json({ limit: "4mb" }));
-app.use(
-  cors({
-    origin: "https://chat-with-me-project-tau.vercel.app", // your frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // if you use cookies or authentication headers
-  })
-);
+app.use(cors());
 
 //Routes setup
 app.use("/api/status", (req, res) => res.send("Server is live"));
