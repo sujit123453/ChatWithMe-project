@@ -11,14 +11,14 @@ const App = () => {
   return (
     <div className="bg-[url('/bg.png')] bg-contain ">
       <Toaster />
+      <Route
+        path="/"
+        element={authUser ? <HomePage /> : <Navigate to="/login" />}
+      />
       <Routes>
         <Route
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/"
-          element={authUser ? <HomePage /> : <Navigate to="/login" />}
         />
         <Route
           path="/profile"

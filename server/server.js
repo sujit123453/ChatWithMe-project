@@ -12,8 +12,13 @@ const app = express();
 const server = http.createServer(app);
 
 //Initialize socket.io server
+const FRONTEND_URL = "https://chat-with-me-project-theta.vercel.app";
+
 export const io = new Server(server, {
-  cors: { origin: "*" },
+  cors: {
+    origin: FRONTEND_URL,
+    methods: ["GET", "POST"],
+  },
 });
 
 //store online users
